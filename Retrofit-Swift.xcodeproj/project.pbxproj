@@ -14,6 +14,16 @@
 		22BEE6171D864E070067221A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22BEE6151D864E070067221A /* LaunchScreen.storyboard */; };
 		22BEE6221D864E070067221A /* Retrofit_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6211D864E070067221A /* Retrofit_SwiftTests.swift */; };
 		22BEE62D1D864E070067221A /* Retrofit_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE62C1D864E070067221A /* Retrofit_SwiftUITests.swift */; };
+		22BEE63C1D864E480067221A /* Retrofit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE63B1D864E480067221A /* Retrofit.swift */; };
+		22BEE63E1D86543D0067221A /* BaseUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE63D1D86543D0067221A /* BaseUrl.swift */; };
+		22BEE6401D865A1D0067221A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE63F1D865A1D0067221A /* Utils.swift */; };
+		22BEE6421D8671BD0067221A /* OkHttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6411D8671BD0067221A /* OkHttpClient.swift */; };
+		22BEE6441D8678280067221A /* Interceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6431D8678280067221A /* Interceptor.swift */; };
+		22BEE6461D86793E0067221A /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6451D86793E0067221A /* Request.swift */; };
+		22BEE6481D86795E0067221A /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6471D86795E0067221A /* Response.swift */; };
+		22BEE64A1D8684BC0067221A /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE6491D8684BC0067221A /* Callback.swift */; };
+		22BEE64C1D8685480067221A /* Call.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE64B1D8685480067221A /* Call.swift */; };
+		22BEE64E1D868C270067221A /* NetworkInterceptorChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BEE64D1D868C270067221A /* NetworkInterceptorChain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +57,16 @@
 		22BEE6281D864E070067221A /* Retrofit-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Retrofit-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22BEE62C1D864E070067221A /* Retrofit_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retrofit_SwiftUITests.swift; sourceTree = "<group>"; };
 		22BEE62E1D864E070067221A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22BEE63B1D864E480067221A /* Retrofit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Retrofit.swift; sourceTree = "<group>"; };
+		22BEE63D1D86543D0067221A /* BaseUrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseUrl.swift; sourceTree = "<group>"; };
+		22BEE63F1D865A1D0067221A /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		22BEE6411D8671BD0067221A /* OkHttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OkHttpClient.swift; sourceTree = "<group>"; };
+		22BEE6431D8678280067221A /* Interceptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interceptor.swift; sourceTree = "<group>"; };
+		22BEE6451D86793E0067221A /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		22BEE6471D86795E0067221A /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		22BEE6491D8684BC0067221A /* Callback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
+		22BEE64B1D8685480067221A /* Call.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Call.swift; sourceTree = "<group>"; };
+		22BEE64D1D868C270067221A /* NetworkInterceptorChain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkInterceptorChain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +117,7 @@
 		22BEE60B1D864E070067221A /* Retrofit-Swift */ = {
 			isa = PBXGroup;
 			children = (
+				22BEE63A1D864E350067221A /* core */,
 				22BEE60C1D864E070067221A /* AppDelegate.swift */,
 				22BEE60E1D864E070067221A /* ViewController.swift */,
 				22BEE6101D864E070067221A /* Main.storyboard */,
@@ -123,6 +144,23 @@
 				22BEE62E1D864E070067221A /* Info.plist */,
 			);
 			path = "Retrofit-SwiftUITests";
+			sourceTree = "<group>";
+		};
+		22BEE63A1D864E350067221A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				22BEE63B1D864E480067221A /* Retrofit.swift */,
+				22BEE63D1D86543D0067221A /* BaseUrl.swift */,
+				22BEE63F1D865A1D0067221A /* Utils.swift */,
+				22BEE6411D8671BD0067221A /* OkHttpClient.swift */,
+				22BEE6431D8678280067221A /* Interceptor.swift */,
+				22BEE6451D86793E0067221A /* Request.swift */,
+				22BEE6471D86795E0067221A /* Response.swift */,
+				22BEE6491D8684BC0067221A /* Callback.swift */,
+				22BEE64B1D8685480067221A /* Call.swift */,
+				22BEE64D1D868C270067221A /* NetworkInterceptorChain.swift */,
+			);
+			path = core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,7 +297,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BEE6421D8671BD0067221A /* OkHttpClient.swift in Sources */,
+				22BEE64C1D8685480067221A /* Call.swift in Sources */,
+				22BEE6461D86793E0067221A /* Request.swift in Sources */,
+				22BEE6401D865A1D0067221A /* Utils.swift in Sources */,
+				22BEE64E1D868C270067221A /* NetworkInterceptorChain.swift in Sources */,
 				22BEE60F1D864E070067221A /* ViewController.swift in Sources */,
+				22BEE6481D86795E0067221A /* Response.swift in Sources */,
+				22BEE6441D8678280067221A /* Interceptor.swift in Sources */,
+				22BEE63C1D864E480067221A /* Retrofit.swift in Sources */,
+				22BEE64A1D8684BC0067221A /* Callback.swift in Sources */,
+				22BEE63E1D86543D0067221A /* BaseUrl.swift in Sources */,
 				22BEE60D1D864E070067221A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
