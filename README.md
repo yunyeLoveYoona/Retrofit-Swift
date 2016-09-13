@@ -13,8 +13,11 @@ Retrofit.builder().baseUrl("http://image.baidu.com/")
 
 
  retrofit.client().addNetworkInterceptor(Interceptor({ (chain) -> Response! in
+ 
             print("请求拦截\(chain.request().url.absoluteString)")
+            
             let response = try chain.proceed()
+            
             return response
             
         }))
@@ -24,10 +27,15 @@ Retrofit.builder().baseUrl("http://image.baidu.com/")
 
 
 let call =  retrofit.call("url", httpMethod: Request.HttpMethod.GET)
+
             call.enqueue(Callback({ (response) in
+            
                 print("请求成功")
+                
                 }, { (error) in
+                
                     print("请求失败")
+                    
             }))
 
 
