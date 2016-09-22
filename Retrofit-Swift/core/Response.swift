@@ -8,17 +8,17 @@
 
 import Foundation
 class Response {
-    var body : NSData!
+    var body : Data!
     var code : Int!
     var method : Request.HttpMethod!
-    var url : NSURL!
+    var url : URL!
     
-    init(url : NSURL,method : Request.HttpMethod){
+    init(url : URL,method : Request.HttpMethod){
         self.url = url
         self.method = method
     }
     
     func strBody() -> NSString!{
-        return NSString(data: body!, encoding: NSUTF8StringEncoding)
+        return NSString(data: body!, encoding: String.Encoding.utf8.rawValue)
     }
 }

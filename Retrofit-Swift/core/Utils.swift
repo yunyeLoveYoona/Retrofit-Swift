@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class Utils {
-    static func isUrl(url : String) -> Bool{
-        return UIApplication.sharedApplication().canOpenURL(NSURL(string: url)!)
+    static func isUrl(_ url : String) -> Bool{
+        return UIApplication.shared.canOpenURL(URL(string: url)!)
     }
 }

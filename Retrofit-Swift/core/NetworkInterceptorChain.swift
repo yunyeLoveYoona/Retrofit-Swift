@@ -8,22 +8,22 @@
 
 import Foundation
 class NetworkInterceptorChain: Chain {
-    private var mRequest : Request!
-    private var mResponse : Response!
-    private var configuration : NSURLSessionConfiguration!
-    private var nsRequest : NSMutableURLRequest!
-    private var session : NSURLSession!
+    fileprivate var mRequest : Request!
+    fileprivate var mResponse : Response!
+    fileprivate var configuration : URLSessionConfiguration!
+    fileprivate var nsRequest : NSMutableURLRequest!
+    fileprivate var session : URLSession!
     
     init(request : Request)throws {
         self.mRequest = request
-        configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        nsRequest = NSMutableURLRequest(URL: request.url, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: NSTimeInterval(request.getTimeOut()))
-        nsRequest.HTTPMethod = request.getMethod()
+        configuration = URLSessionConfiguration.default
+        nsRequest = NSMutableURLRequest(url: request.url as URL, cachePolicy: NSURLRequest.CachePolicy.useProtocolCachePolicy, timeoutInterval: TimeInterval(request.getTimeOut()))
+        nsRequest.httpMethod = request.getMethod()
         if request.httpBody != nil{
-            let data:NSData = try NSJSONSerialization.dataWithJSONObject(request.httpBody, options: NSJSONWritingOptions.PrettyPrinted)
-            nsRequest.HTTPBody = data
+            let data:Data = try JSONSerialization.data(withJSONObject: request.httpBody, options: JSONSerialization.WritingOptions.prettyPrinted)
+            nsRequest.httpBody = data
         }
-        session = NSURLSession(configuration: configuration)
+        session = URLSession(configuration: configuration)
         
     }
     
@@ -33,33 +33,39 @@ class NetworkInterceptorChain: Chain {
     
     func proceed() throws -> Response {
         var nsError : NSError!
-        let semaphore = dispatch_semaphore_create(0)
-        let dataTask = session.dataTaskWithRequest(nsRequest,completionHandler: {(data, response, error) -> Void in
+        let semaphore = DispatchSemaphore(value: 0)
+        let dataTask = session.dataTask(with: nsRequest as URLRequest,completionHandler: {(data, response, error) -> Void in
             if error != nil{
-                nsError = error
+                nsError = error as NSError!
             }else{
                 self.mResponse = Response(url: self.mRequest.url,method: self.mRequest.method)
                 self.mResponse.code = 200
                 self.mResponse.body = data
             }
-            dispatch_semaphore_signal(semaphore)
-        }) as NSURLSessionTask
+            semaphore.signal()
+        })
+        
         dataTask.resume()
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-        if nsError != nil{
-            throw nsError.description
+        let dispatchTimeoutResult = semaphore.wait(timeout: DispatchTime.distantFuture)
+        if dispatchTimeoutResult == DispatchTimeoutResult.success{
+            if nsError != nil{
+                throw nsError.description
+            }
+            return mResponse
+        }else{
+            throw "请求超时"
+
         }
-        return mResponse
     }
     
     
-    func addHeader(value: String, forHTTPHeaderField: String){
+    func addHeader(_ value: String, forHTTPHeaderField: String){
         nsRequest.addValue(value, forHTTPHeaderField: forHTTPHeaderField)
     }
     
     
-    func setConfiguration(configuration : NSURLSessionConfiguration){
-        session = NSURLSession(configuration: configuration)
+    func setConfiguration(_ configuration : URLSessionConfiguration){
+        session = URLSession(configuration: configuration)
     }
     
     func getHttpBody() -> NSDictionary{
@@ -67,10 +73,10 @@ class NetworkInterceptorChain: Chain {
     }
     
     
-    func setHttpBody(httpBody : NSDictionary)throws{
+    func setHttpBody(_ httpBody : NSDictionary)throws{
         mRequest.httpBody = httpBody
-        let data:NSData = try NSJSONSerialization.dataWithJSONObject(httpBody, options: NSJSONWritingOptions.PrettyPrinted)
-        nsRequest.HTTPBody = data
+        let data:Data = try JSONSerialization.data(withJSONObject: httpBody, options: JSONSerialization.WritingOptions.prettyPrinted)
+        nsRequest.httpBody = data
     }
     
     

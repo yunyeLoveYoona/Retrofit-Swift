@@ -8,8 +8,8 @@
 
 import Foundation
 class Interceptor {
-    var intercpt : (chain : Chain)throws -> Response!
-    init(_ intercpt : (chain : Chain)throws -> Response!){
+    var intercpt : (_ chain : Chain)throws -> Response!
+    init(_ intercpt : @escaping (_ chain : Chain)throws -> Response!){
         self.intercpt = intercpt
     }    
 }

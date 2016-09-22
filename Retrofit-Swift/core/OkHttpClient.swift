@@ -9,13 +9,13 @@
 import Foundation
 
 class OkHttpClient {
-    private var queue : dispatch_queue_t!
+    fileprivate var queue : DispatchQueue!
     var timeOut : Int!
-    private var networkInterceptorArray : Array<Interceptor>!
-    private var isStop = false
+    fileprivate var networkInterceptorArray : Array<Interceptor>!
+    fileprivate var isStop = false
     
     init(){
-        queue = dispatch_queue_create("okhttp_quue", DISPATCH_QUEUE_CONCURRENT)
+        queue = DispatchQueue(label: "okhttp_quue", attributes: DispatchQueue.Attributes.concurrent)
         timeOut = 30
         networkInterceptorArray = Array<Interceptor>()
     }
@@ -24,13 +24,13 @@ class OkHttpClient {
         return networkInterceptorArray
     }
     
-    func addNetworkInterceptor(interceptor : Interceptor){
+    func addNetworkInterceptor(_ interceptor : Interceptor){
         networkInterceptorArray.append(interceptor)
     }
     
-    func enqueue(call : Call){
+    func enqueue(_ call : Call){
         isStop = false
-        dispatch_async(queue, call.getDispatchBlock())
+        queue.async(execute: call.getDispatchBlock())
     }
     
     func isStopQueue() -> Bool{

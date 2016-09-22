@@ -9,7 +9,7 @@
 import Foundation
 protocol BaseUrl{
     
-    func baseUrl() -> NSURL
+    func baseUrl() -> URL
     
-    func composeUrl(url : String) -> NSURL
+    func composeUrl(_ url : String) -> URL
 }

@@ -9,24 +9,24 @@
 import Foundation
 class Request {
     var method : HttpMethod!
-    var url : NSURL!
-    private var client : OkHttpClient!
+    var url : URL!
+    fileprivate var client : OkHttpClient!
     var httpBody : NSDictionary!
     
-    init(url : NSURL,method : HttpMethod,client : OkHttpClient){
+    init(url : URL,method : HttpMethod,client : OkHttpClient){
         self.url = url
         self.method = method
         self.client = client
     }
     
     
-    func enqueue(call : Call){
+    func enqueue(_ call : Call){
         client.enqueue(call)
     }
     
     func sendRequest()throws -> Response!{
         if client.networkInterceptors().count > 0{
-           return try client.networkInterceptors()[0].intercpt(chain: NetworkInterceptorChain(request: self))
+           return try client.networkInterceptors()[0].intercpt(NetworkInterceptorChain(request: self))
         }else{
            return try NetworkInterceptorChain(request: self).proceed()
         }
@@ -34,9 +34,9 @@ class Request {
     
     func getMethod() -> String{
         switch method! {
-        case HttpMethod.GET:
+        case HttpMethod.get:
             return "GET"
-        case HttpMethod.POST:
+        case HttpMethod.post:
             return "POST"
         }
     }
@@ -50,7 +50,7 @@ class Request {
     }
     
     enum HttpMethod {
-        case POST, GET
+        case post, get
     }
 }
 

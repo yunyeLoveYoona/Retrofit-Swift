@@ -8,8 +8,8 @@
 
 import Foundation
 class Retrofit{
-    private var baseUrl : BaseUrl!
-    private var mClient : OkHttpClient!
+    fileprivate var baseUrl : BaseUrl!
+    fileprivate var mClient : OkHttpClient!
     
     init(baseUrl : BaseUrl){
         self.baseUrl = baseUrl
@@ -27,12 +27,12 @@ class Retrofit{
     }
     
     
-    func call(url : String,httpMethod : Request.HttpMethod) -> Call {
+    func call(_ url : String,httpMethod : Request.HttpMethod) -> Call {
          return call(url, httpMethod: httpMethod, httpBody: nil)
     }
     
     
-    func call(url : String,httpMethod : Request.HttpMethod,httpBody : NSDictionary!) -> Call {
+    func call(_ url : String,httpMethod : Request.HttpMethod,httpBody : NSDictionary!) -> Call {
         let request = Request(url: baseUrl.composeUrl(url), method: httpMethod, client: mClient)
         if httpBody != nil{
             request.httpBody = httpBody
@@ -42,9 +42,9 @@ class Retrofit{
     }
     
     class Builder : BaseUrl{
-        private var mBaseUrl : String!
+        fileprivate var mBaseUrl : String!
         
-        func baseUrl(url : String) -> Builder {
+        func baseUrl(_ url : String) -> Builder {
             mBaseUrl = url
             if !Utils.isUrl(mBaseUrl){
                 print( "Illegal URL: \(mBaseUrl)")
@@ -52,18 +52,18 @@ class Retrofit{
             return self
         }
         
-        func baseUrl() -> NSURL{
+        func baseUrl() -> URL{
             if mBaseUrl == nil{
                 print( "Illegal URL: \(mBaseUrl)")
             }
-            return NSURL(string: mBaseUrl)!
+            return URL(string: mBaseUrl)!
         }
         
-        func composeUrl(url : String) -> NSURL {
-            if !Utils.isUrl("\(mBaseUrl)\(url)"){
+        func composeUrl(_ url : String) -> URL {
+            if !Utils.isUrl("\(mBaseUrl!)\(url)"){
                 print("Illegal URL: \(mBaseUrl)\(url)")
             }
-            return NSURL(string: "\(mBaseUrl)\(url)")!
+            return URL(string: "\(mBaseUrl!)\(url)")!
         }
         
         func build() -> Retrofit {
@@ -79,7 +79,7 @@ class Retrofit{
 }
 
 
-extension String : ErrorType{
+extension String : Error{
     
     
 }

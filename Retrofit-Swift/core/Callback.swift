@@ -8,9 +8,9 @@
 
 import Foundation
 class Callback {
-    var onResponse : (response : Response) ->Void
-    var onFailure  : (error : String) ->Void
-    init(_ onResponse : (response : Response) ->Void, _ onFailure : (error : String) ->Void){
+    var onResponse : (_ response : Response) ->Void
+    var onFailure  : (_ error : String) ->Void
+    init(_ onResponse : @escaping (_ response : Response) ->Void, _ onFailure : @escaping (_ error : String) ->Void){
         self.onFailure = onFailure
         self.onResponse = onResponse
     }

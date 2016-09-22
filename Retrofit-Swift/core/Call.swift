@@ -8,30 +8,30 @@
 
 import Foundation
 class Call{
-    private var request : Request!
-    private var callback : Callback!
-    private var isStop = false
+    fileprivate var request : Request!
+    fileprivate var callback : Callback!
+    fileprivate var isStop = false
     
     init(request : Request){
         self.request = request
     }
     
-    func getDispatchBlock() -> dispatch_block_t {
+    func getDispatchBlock() -> ()->() {
         let block = {
             if(!self.isStop && !self.request.isStop()){
                 do {
                     let response = try self.request.sendRequest()
                     if self.callback != nil{
                         if response == nil{
-                            self.callback.onFailure(error: "请求失败")
+                            self.callback.onFailure("请求失败")
                         }else{
-                            self.callback.onResponse(response: response)
+                            self.callback.onResponse(response!)
                         }
                         
                     }
                 }catch let error{
                     if self.callback != nil{
-                        self.callback.onFailure(error: error as! String)
+                        self.callback.onFailure(error as! String)
                     }
                 }
             }
@@ -39,7 +39,7 @@ class Call{
         return block
     }
     
-    func enqueue(callback : Callback){
+    func enqueue(_ callback : Callback){
         self.callback = callback
         request.enqueue(self)
     }
